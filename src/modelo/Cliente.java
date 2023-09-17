@@ -97,5 +97,47 @@ public class Cliente extends Persona {
           System.out.println("Error:" + ex.getMessage());
       
       }
+  } 
+    @Override
+  public void actualizar(){
+      try{
+          PreparedStatement parametro;
+          cn = new Conexion ();
+          cn.abrir_conexion();
+          String query;
+          query = "update clientes set nit=?,nombres=?,apellidos=?,direccion=?,telefono=?,fecha_nacimiento=? where id_cliente=?;";
+          parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
+          parametro.setString(1, getNit());
+          parametro.setString(2, getNombres());
+          parametro.setString(3, getApellidos());
+          parametro.setString(4, getDireccion());
+          parametro.setString(5, getTelefono());
+          parametro.setString(6, getFecha_nacimiento());
+          parametro.setInt(7, getId());
+          int executar = parametro.executeUpdate();
+          System.out.println(" Se Actualizo :" + Integer.toString(executar) + " Registro" );
+          cn.cerrar_conexion();
+      }catch(SQLException ex){
+          System.out.println("Error:" + ex.getMessage());
+      
+      }
+  } 
+    @Override
+  public void borrar(){
+      try{
+          PreparedStatement parametro;
+          cn = new Conexion ();
+          cn.abrir_conexion();
+          String query;
+          query = "delete from clientes where id_clientes=?;";
+          parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
+          parametro.setInt(1, getId());
+          int executar = parametro.executeUpdate();
+          System.out.println(" Se Elimino :" + Integer.toString(executar) + " Registro" );
+          cn.cerrar_conexion();
+      }catch(SQLException ex){
+          System.out.println("Error:" + ex.getMessage());
+      
+      }
   }  
 }

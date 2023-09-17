@@ -115,8 +115,18 @@ Cliente cliente;
         });
 
         btn_actualizar.setText("Actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
 
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,15 +228,25 @@ Cliente cliente;
     private void txt_apellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apellidosKeyReleased
         // TODO add your handling code here: un apellido o dos
     }//GEN-LAST:event_txt_apellidosKeyReleased
-
+public void seleccionar_datos(){
+ int fila  = tbl_cliente.getSelectedRow();
+       lbl_id.setText(tbl_cliente.getValueAt(fila, 0).toString());
+       txt_nit.setText(tbl_cliente.getValueAt(fila, 1).toString());
+       txt_nombres.setText(tbl_cliente.getValueAt(fila, 2).toString());
+       txt_apellidos.setText(tbl_cliente.getValueAt(fila, 3).toString());
+       txt_direccion.setText(tbl_cliente.getValueAt(fila, 4).toString());
+       txt_telefono.setText(tbl_cliente.getValueAt(fila, 5).toString());
+       txt_fn.setText(tbl_cliente.getValueAt(fila, 6).toString());
+}
     private void tbl_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_clienteMouseClicked
         // TODO add your handling code here:
-       
+        seleccionar_datos();
 
     }//GEN-LAST:event_tbl_clienteMouseClicked
 
     private void tbl_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_clienteKeyReleased
         // TODO add your handling code here:
+        seleccionar_datos();
         
     }//GEN-LAST:event_tbl_clienteKeyReleased
 
@@ -236,6 +256,21 @@ Cliente cliente;
         cliente.crear();
         tbl_cliente.setModel(cliente.leer());
     }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // TODO add your handling code here:
+        cliente = new Cliente(txt_nit.getText(),Integer.parseInt(lbl_id.getText()) ,txt_nombres.getText(),txt_apellidos.getText(),txt_direccion.getText(),txt_telefono.getText(),txt_fn.getText());
+        cliente.actualizar();
+        tbl_cliente.setModel(cliente.leer());
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+         cliente = new Cliente();
+        cliente.setId(Integer.parseInt(lbl_id.getText()));
+        cliente.borrar();
+        tbl_cliente.setModel(cliente.leer());
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
