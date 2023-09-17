@@ -129,7 +129,7 @@ public class Cliente extends Persona {
           cn = new Conexion ();
           cn.abrir_conexion();
           String query;
-          query = "delete from clientes where id_clientes=?;";
+          query = "delete from clientes where id_cliente=?;";
           parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
           parametro.setInt(1, getId());
           int executar = parametro.executeUpdate();
